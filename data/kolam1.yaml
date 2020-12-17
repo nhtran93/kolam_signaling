@@ -1,0 +1,11 @@
+png_hash: 1d1aef5
+export_timestamp: "06:19:16.715 PM 04-Apr-2019"
+
+matrix_size: 21
+pulli: 4
+loops: 4
+ktype: "_D____"
+sequence: '
+ [["D4L" "D4L" "D4L" "D4L"] ["D4L" "D4L" "D4L" "D4L"] ["D4L" "D4L" "D4L" "D4L"] ["D4L" "D4L" "D4L" "D4L"]]'
+
+history: "[[history-array] [Oldx 0 31.5 31.5 31.5 31.5 73.5 73.5 73.5 73.5 31.5 31.5 31.5 31.5 73.5 73.5 73.5 73.5] [Oldy 10.5 73.5 73.5 73.5 73.5 73.5 73.5 73.5 73.5 31.5 31.5 31.5 31.5 31.5 31.5 31.5 31.5] [Oldh 90 0 90 180 270 270 0 90 180 270 0 90 180 270 0 90 180] [Oldpos Ov D D D D D D D D D D D D D D D D]]"
