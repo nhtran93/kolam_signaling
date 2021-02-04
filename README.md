@@ -41,7 +41,7 @@ The [data](data/) to run the analyses can be found all in `data/kolam_data_share
 `output/`: Figures and posterior samples will be stored in this directory.  
 `helpers/`: Contains all the helper functions for the analyses.  
 `stan/`: Contains the Stan code for the random intercept model.  
-`samples/`: This directory will be created by running the code. It will store the MCMC samples.  
+`samples/`: This directory will store the MCMC samples.  
 
 ## Run the analyses
 Download all files from https://github.com/nhtran93/kolam_signaling
@@ -68,7 +68,7 @@ entropy_model <- FALSE
 ```
 **IMPORTANT NOTE**: Make sure you have enough disk space and working memory left on your computer. The statistical models take a while (~2h each) to run and the samples are each up to 2GB big. It is recommended to run the statistical models on a cluster computer if possible.
 
-You can run fit the statistical models one by one using the R script [Fit_Models_intercept.R](./Fit_Models_intercept.R) to run the random incetercept models. The code chunks to fit the statistical models are each wrapped in an if statement. The default of the if statement is FALSE. If you want to fit the statistical model, you will have to manually change the if statement into TRUE on the top of the R script. The samples should be stored in the your current directory. Afterwards, you can [describe](./Describe_model_samples.R) the models and run diagnostic plots (Figures shown in the main paper). The plots will be automatically saved in your current directory.
+You can run fit the statistical models one by one using the R script [Fit_Models_intercept.R](./Fit_Models_intercept.R) to run the random incetercept models. The code chunks to fit the statistical models are each wrapped in an if statement. The default of the if statement is FALSE. If you want to fit the statistical model, you will have to manually change the if statement into TRUE on the top of the R script. All your fitted MCMC samples will be saved in the directory [samples](./samples/). Afterwards, you can [describe](./Describe_model_samples.R) the models and run diagnostic plots (Figures shown in the main paper and in the SI). The plots will be automatically saved in the directory [output](./output/). Please note that the R script [Describe_model_samples.R](./Describe_model_samples.R) will not be able to produce the plots without previously fitting all the statistical models.
 
 You can further find the code to run the simulations to solve for the *entropy envelope* in terms of boundary conditions and reproduce the SI Figure 1 in [entropy_evenness_richness_simulation.R](./entropy_evenness_richness_simulaton.R). 
 
