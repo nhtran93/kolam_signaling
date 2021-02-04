@@ -55,9 +55,6 @@ Thumbs.db
 *.Rproj.user
 
 # graphics
-*.png
-*.eps
-*.jpeg
 *.jpg
 *.tiff
 *.bmp

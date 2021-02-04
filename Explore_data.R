@@ -220,19 +220,19 @@ text(15, 0.65, round(hs[11], 1), cex = 0.8, col = "grey55")
 text(15, 0.75, round(hs[12], 1), cex = 0.8, col = "grey55")
 text(15, 0.87, round(hs[12], 1), cex = 0.8, col = "grey55")
 
-
-# Divide data into 4 size categories
-df$size_cat <- case_when(
-  df$size <= 4 ~ 1,
-  df$size %in% 5:6 ~ 2,
-  df$size %in% 7:8 ~ 3,
-  df$size %in% 9:11 ~ 4,
-  df$size >= 13 ~ 5
-)
-
-size <- 1:5
-x <- tapply(df$n_unique_gestures, df$size_cat,  function(z) mean(z, na.rm = TRUE))
-y <- tapply(df$gesture_gini, df$size_cat, function(z) mean(z, na.rm = TRUE))
-points(x, 1 - y, type = "b", col = "black", cex = 1:5)
+# # Can be added to the plot: This part illustrates the different canvas sizes using black circles
+# # Divide data into 4 size categories
+# df$size_cat <- case_when(
+#   df$size <= 4 ~ 1,
+#   df$size %in% 5:6 ~ 2,
+#   df$size %in% 7:8 ~ 3,
+#   df$size %in% 9:11 ~ 4,
+#   df$size >= 13 ~ 5
+# )
+# 
+# size <- 1:5
+# x <- tapply(df$n_unique_gestures, df$size_cat,  function(z) mean(z, na.rm = TRUE))
+# y <- tapply(df$gesture_gini, df$size_cat, function(z) mean(z, na.rm = TRUE))
+# points(x, 1 - y, type = "b", col = "black", cex = 1:5)
 
 dev.off()

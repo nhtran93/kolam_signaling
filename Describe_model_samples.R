@@ -3,6 +3,7 @@ library(rethinking)
 library(ggplot2)
 library(msm)
 library(ggpubr)
+library(tidyverse)
 
 load(file = "samples/params_density.RData")
 load(file = "samples/params_canvas_size.RData")
@@ -36,7 +37,10 @@ plot_size1 <- ggplot(artist_mean, aes(x = size_offset, y = 1-gini_offset)) +
         plot.title = element_text(size = 20, face = "bold"),
         legend.key.width = unit(1.5,"cm")) +
   ggtitle("A") + 
-  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3)) 
+  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3))  +
+  annotate(geom = "text",
+           label = paste("r =", round(cor((1-artist_gini_mean), artist_size_mean), 3)),
+           x = 8.7, y = 0.65, size = 6)
 
 plot_size2 <- ggplot(artist_mean, aes(x = unique_offset, y = size_offset)) + 
   geom_point(aes(color = entropy_offset), size = 2) +
@@ -53,7 +57,10 @@ plot_size2 <- ggplot(artist_mean, aes(x = unique_offset, y = size_offset)) +
         plot.title = element_text(size = 20, face = "bold"),
         legend.key.width = unit(1.5,"cm")) +
   ggtitle("C") + 
-  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3)) 
+  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3)) +
+  annotate(geom = "text",
+           label = paste("r =", round(cor(artist_unique_mean, artist_size_mean), 3)),
+           x = 4.465, y = 9.1, size = 6) 
 
 
 g_H_max_0.7 <- function(x) {
@@ -104,13 +111,16 @@ plot_gini1 <- ggplot(artist_mean, aes(x = unique_offset, y = 1 - gini_offset)) +
         plot.title = element_text(size = 20, face = "bold"),
         legend.key.width = unit(1.5,"cm")) +
   ggtitle("B") + 
-  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3))
+  scale_fill_gradient(limits = c(0, 2), breaks = c(1.1, 1.2, 1.3)) +
+  annotate(geom = "text",
+           label = paste("r =", round(cor((1-artist_gini_mean), artist_unique_mean), 3)),
+           x = 4.465, y = 0.65, size = 6)
 
-cairo_ps(file = "output/2_outcomes_short.eps", 
+cairo_ps(file = "output/posterior_intercepts.eps", 
          fallback_resolution = 1000, width = 15, height = 7)
 dev.off()
-png(filename = "output/2_outcomes_short.png",
-    width = 15, height = 7, units = "in", res = 800)
+# png(filename = "output/posterior_intercepts.png",
+#     width = 15, height = 7, units = "in", res = 800)
 ggarrange(plot_size1, plot_gini1, plot_size2,
           common.legend = TRUE,
           ncol = 3, nrow = 1, legend="bottom")
@@ -311,5 +321,119 @@ dev.off()
 cairo_ps(file = "output/coefficients_random_plot.eps", 
          onefile = TRUE, fallback_resolution = 800, width = 10, height = 4)
 print(coefficient_plots)
+dev.off()
+
+############################# Visual MCMC Diagnostics ################################
+png(filename = "output/trace_unique_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+traceplot(samples_unique, pars = c("alpha", "artist_sigma",
+                                   "group_beta_caste_sd", 
+                                   "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/rank_unique_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+trankplot(samples_unique, pars = c("alpha", "artist_sigma",
+                                   "group_beta_caste_sd", 
+                                   "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/pairs_unique_intercept.png",
+    width = 6, height = 6, units = "in", res = 800)
+pairs(samples_unique, pars = c("alpha", "artist_sigma",
+                               "group_beta_caste_sd", 
+                               "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/trace_density_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+traceplot(samples_density, pars = c("alpha", "artist_sigma",
+                                    "group_beta_caste_sd", "beta_age",
+                                    "beta_duration", "sigma"))
+dev.off()
+
+png(filename = "output/rank_density_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+trankplot(samples_density, pars = c("alpha", "artist_sigma",
+                                    "group_beta_caste_sd", "beta_age", "beta_duration", "sigma"))
+dev.off()
+
+png(filename = "output/pairs_density_intercept.png",
+    width = 6, height = 6, units = "in", res = 800)
+pairs(samples_density, pars = c("alpha", "artist_sigma",
+                                "group_beta_caste_sd",
+                                "beta_age", "beta_duration", "sigma"))
+dev.off()
+
+png(filename = "output/trace_size_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+traceplot(samples_size, pars = c("alpha", "artist_sigma",
+                                 "group_beta_caste_sd", 
+                                 "phi",
+                                 "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/rank_size_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+trankplot(samples_size, pars = c("alpha", "artist_sigma",
+                                 "group_beta_caste_sd", 
+                                 "phi",
+                                 "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/pairs_size_intercept.png",
+    width = 6, height = 6, units = "in", res = 800)
+pairs(samples_size, pars = c("alpha", "artist_sigma",
+                             "group_beta_caste_sd", 
+                             "phi",
+                             "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/trace_gini_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+traceplot(samples_gini, pars = c("alpha", "artist_sigma",
+                                 "group_beta_caste_sd", 
+                                 "sigma",
+                                 "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/rank_gini_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+trankplot(samples_gini, pars = c("alpha", "artist_sigma",
+                                 "group_beta_caste_sd", 
+                                 "sigma",
+                                 "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/pairs_gini_intercept.png",
+    width = 6, height = 6, units = "in", res = 800)
+pairs(samples_gini, pars = c("alpha", "artist_sigma",
+                             "group_beta_caste_sd", 
+                             "sigma",
+                             "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/trace_entropy_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+traceplot(samples_entropy, pars = c("alpha", "artist_sigma",
+                                    "group_beta_caste_sd", 
+                                    "sigma",
+                                    "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/rank_entropy_intercept.png",
+    width = 8, height = 5, units = "in", res = 800)
+trankplot(samples_entropy, pars = c("alpha", "artist_sigma",
+                                    "group_beta_caste_sd", 
+                                    "sigma",
+                                    "beta_age", "beta_duration"))
+dev.off()
+
+png(filename = "output/pairs_entropy_intercept.png",
+    width = 6, height = 6, units = "in", res = 800)
+pairs(samples_entropy, pars = c("alpha", "artist_sigma",
+                                "group_beta_caste_sd", 
+                                "sigma",
+                                "beta_age", "beta_duration"))
 dev.off()
 

@@ -4,7 +4,7 @@
 
 The following repository contains data and code used for analyses in:
 
-> Tran, N.-H., Atmaca, S., Waring, T. & Beheim, B. A. (submitted). Entropy trade-offs in artistic design: A case study of Tamil *kolam*.
+> Tran, N.-H., Atmaca, S., Waring, T. & Beheim, B. A. (under review). Entropy trade-offs in artistic design: A case study of Tamil *kolam*.
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-In order to be able to run the code, you will need to have an up-to-date version of [R](https://www.r-project.org/) installed on your computer and a few CRAN packages (see below). You will need [Stan](https://mc-stan.org/) in order to fit the statistical models. To be able to plot the *kolam* drawings, you will further need to install the `kolam` R package.
+In order to be able to run the code, you will need to have an up-to-date version of [R](https://www.r-project.org/) installed on your computer and a few CRAN packages (see below). You will need [Stan](https://mc-stan.org/) in order to fit the statistical models. If your operating system is macOS Catalina or higher, you might encounter C++ compiler problems with Stan. To fix these C++ compiler problems, please check the following links: [Link1](https://discourse.mc-stan.org/t/dealing-with-catalina-iii/12731) and [Link2](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/). To be able to plot the *kolam* drawings, you will further need to install the `kolam` R package.
 
 ```
 # Install devtools package if necessary
@@ -41,6 +41,7 @@ The [data](data/) to run the analyses can be found all in `data/kolam_data_share
 `output/`: Figures and posterior samples will be stored in this directory.  
 `helpers/`: Contains all the helper functions for the analyses.  
 `stan/`: Contains the Stan code for the random intercept model.  
+`samples/`: This directory will be created by running the code. It will store the MCMC samples.  
 
 ## Run the analyses
 Download all files from https://github.com/nhtran93/kolam_signaling
@@ -54,6 +55,9 @@ Before fitting the statistical models, you will first need to check your directo
 # Make sure to check your working directory first. You should be in the root directory of this project. 
 getwd()
 
+# Make sure to create a directory where the fitted MCMC samples will be saved.
+dir.create("samples")
+
 # Example of how to fit a statistical model (change the if statement to TRUE):
 density_model <- FALSE
 gini_model <- TRUE          # This model will be fitted
@@ -64,9 +68,9 @@ entropy_model <- FALSE
 ```
 **IMPORTANT NOTE**: Make sure you have enough disk space and working memory left on your computer. The statistical models take a while (~2h each) to run and the samples are each up to 2GB big. It is recommended to run the statistical models on a cluster computer if possible.
 
-You can run fit the statistical models one by one using the R script [Fit_models_intecept.R](Fit_models_intecept.R) to run the random incetercept models. The code chunks to fit the statistical models are each wrap in an if statement. The default of the if statement is FALSE. If you want to fit the statistical model, you will have to manually change the if statement into TRUE on the top of the R script. The samples should be stored in the your current directory. Afterwards, you can [describe](Describe_model_samples.R) the models and run diagnostic plots (Figures shown in the main paper). The plots will be automatically saved in your current directory.
+You can run fit the statistical models one by one using the R script [Fit_Models_intercept.R](./Fit_Models_intercept.R) to run the random incetercept models. The code chunks to fit the statistical models are each wrapped in an if statement. The default of the if statement is FALSE. If you want to fit the statistical model, you will have to manually change the if statement into TRUE on the top of the R script. The samples should be stored in the your current directory. Afterwards, you can [describe](./Describe_model_samples.R) the models and run diagnostic plots (Figures shown in the main paper). The plots will be automatically saved in your current directory.
 
-You can further find the code to run the simulations to solve for the *entropy envelope* in terms of boundary conditions and reproduce the SI Figure 1 in [entropy_evenness_richness_simulation.R](entropy_evenness_richness_simulation.R). 
+You can further find the code to run the simulations to solve for the *entropy envelope* in terms of boundary conditions and reproduce the SI Figure 1 in [entropy_evenness_richness_simulation.R](./entropy_evenness_richness_simulaton.R). 
 
 ### Example *kolam* drawings and their corresponding structural and information-theoretic properties
 

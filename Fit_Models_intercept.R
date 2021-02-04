@@ -4,6 +4,9 @@ library(rethinking)
 library(parallel)
 set.seed(152)
 
+# Make sure to create a directory where the fitted MCMC samples will be saved.
+dir.create("samples")
+
 # You will have to manually change the following to TRUE, if you want to fit the model:
 density_model <- FALSE
 gini_model <- FALSE
