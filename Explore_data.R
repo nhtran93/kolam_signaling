@@ -189,9 +189,10 @@ plot(jitter(df$n_unique_gestures), 1 - df$gesture_gini,
      col = col_alpha("#9ECAE1", 0.5), pch = 20, xlim = c(2, 15), ylim = c(0, 1),
      ylab = "Evenness", xlab = "Richness")
 
-hs <- log(2:15)
+hs <- c(0.5, 1, 1.2, 1.5, 1.8, 2.1, 2.3, 2.5, 2.6)
+lty <- c(5, 3, 5, 3, rep(5, 5))
 for (i in 1:length(hs)) curve(1 - g_H_max(H = hs[i], x),
-                              add = TRUE, lty = 5, lwd = 1.5, col = "grey55")
+                              add = TRUE, lty = lty[i], lwd = 1.5, col = "grey55")
 
 size <- 2:25
 # mean Gini Index & Unique Number of Gestures by canvas size
@@ -206,19 +207,15 @@ kernelgon(dat, border = NA, col = col_alpha(oranges[4], 0.5), prob = 0.75)
 kernelgon(dat, border = NA, col = col_alpha(oranges[5], 0.5), prob = 0.50)
 
 # Gradient Text
-text(15, 0.07, round(hs[1], 1), cex = 0.8, col = "grey55")
-text(15, 0.12, round(hs[2], 1), cex = 0.8, col = "grey55")
-text(15, 0.16, round(hs[3], 1), cex = 0.8, col = "grey55")
-text(15, 0.21, round(hs[4], 1), cex = 0.8, col = "grey55")
-text(15, 0.26, round(hs[5], 1), cex = 0.8, col = "grey55")
-text(15, 0.32, round(hs[6], 1), cex = 0.8, col = "grey55")
-text(15, 0.38, round(hs[7], 1), cex = 0.8, col = "grey55")
-text(15, 0.44, round(hs[8], 1), cex = 0.8, col = "grey55")
-text(15, 0.5, round(hs[9], 1), cex = 0.8, col = "grey55")
-text(15, 0.58, round(hs[10], 1), cex = 0.8, col = "grey55")
-text(15, 0.65, round(hs[11], 1), cex = 0.8, col = "grey55")
-text(15, 0.75, round(hs[12], 1), cex = 0.8, col = "grey55")
-text(15, 0.87, round(hs[12], 1), cex = 0.8, col = "grey55")
+text(15, 0.01, round(hs[1], 1), cex = 0.8, col = "grey55")
+text(15.2, 0.075, round(hs[2], 1), cex = 0.8, col = "grey55")
+text(15, 0.13, round(hs[3], 1), cex = 0.8, col = "grey55")
+text(15, 0.185, round(hs[4], 1), cex = 0.8, col = "grey55")
+text(15, 0.27, round(hs[5], 1), cex = 0.8, col = "grey55")
+text(15, 0.4, round(hs[6], 1), cex = 0.8, col = "grey55")
+text(15, 0.52, round(hs[7], 1), cex = 0.8, col = "grey55")
+text(15, 0.68, round(hs[8], 1), cex = 0.8, col = "grey55")
+text(15, 0.85, round(hs[9], 1), cex = 0.8, col = "grey55")
 
 # # Can be added to the plot: This part illustrates the different canvas sizes using black circles
 # # Divide data into 4 size categories
