@@ -4,7 +4,7 @@
 
 The following repository contains data and code used for analyses in:
 
-> Tran, N.-H., Atmaca, S., Waring, T. & Beheim, B. A. (under review). Entropy trade-offs in artistic design: A case study of Tamil *kolam*.
+> Tran, N.-H., Atmaca, S., Waring, T. & Beheim, B. A. (2021). Entropy trade-offs in artistic design: A case study of Tamil *kolam*.
 
 ## Getting Started
 
